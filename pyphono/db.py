@@ -13,9 +13,22 @@ class DataBase:
                 word, num, *pinyin = line.split()
                 self.mapping[word] = pinyin
 
-    def findAWord(self, word, multi_pinyin=False):
+    def pinAWord(self, word, multi_pinyin=False):
+        if word not in self.mapping:
+            return False
         if multi_pinyin:
             return self.mapping[word]
         else:
             return self.mapping[word][0]
+
+    def pinASentence(self, sentence, multi_pinin=False):
+        results = []
+        for word in sentence:
+            pinin = self.pinAWord(word, multi_pinin)
+            if pinin:
+                results.append(pinin)
+            else:
+                results.append(word)
+        return results
+            
 
